@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { tileLayer, latLng, marker } from 'leaflet';
+import { tileLayer, latLng, marker, Marker } from 'leaflet';
+
+import data from 'src/assets/data.json';
 
 @Component({
   selector: 'app-map',
@@ -7,6 +9,16 @@ import { tileLayer, latLng, marker } from 'leaflet';
   styleUrls: ['./map.component.css']
 })
 export class MapComponent implements OnInit {
+
+  parentDataMatListIcon: string;
+  childDataMatListIcon: string;
+  activeMatListIcon: string;
+  lt: number;
+  lg: number;
+  options: object;
+  layers: Marker[];
+  DATA: object[];
+  ACTIVE: object[];
 
   constructor() { }
 
