@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { tileLayer, latLng, marker, Marker } from 'leaflet';
+import 'leaflet/dist/images/marker-shadow.png';
+import 'leaflet/dist/images/marker-icon.png';
 
 import data from 'src/assets/data.json';
 
@@ -38,6 +40,11 @@ export class MapComponent implements OnInit {
     this.layers = [];
     this.DATA = data;
     this.ACTIVE = [];
+  }
+
+  addMarker() {
+    const newMarker: Marker = marker([ this.lt + 5 * (Math.random() - 0.5), this.lg + 5 * (Math.random() - 0.5) ]);
+    this.layers.push(newMarker);
   }
 
 }
