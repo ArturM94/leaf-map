@@ -1,10 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { MapComponent } from './components/map/map.component';
 import { AppRoutingModule } from './app-routing.module';
+import { MaterialModule } from './material.module';
+import { MapComponent } from './components/map/map.component';
 
 @NgModule({
   declarations: [
@@ -12,9 +13,10 @@ import { AppRoutingModule } from './app-routing.module';
     MapComponent
   ],
   imports: [
-    BrowserModule,
     AppRoutingModule,
-    LeafletModule.forRoot()
+    BrowserModule,
+    LeafletModule.forRoot(),
+    MaterialModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
