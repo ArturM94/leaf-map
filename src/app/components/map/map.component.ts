@@ -22,19 +22,22 @@ export class MapComponent implements OnInit {
 
   constructor() { }
 
-  options = {
-    layers: [
-      tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '...' })
-    ],
-    zoom: 5,
-    center: latLng(46.879966, -121.726909)
-  };
-
-  layers = [
-    marker([ 46.879966, -121.726909 ])
-  ];
-
   ngOnInit() {
+    this.parentDataMatListIcon = 'arrow_forward_ios';
+    this.childDataMatListIcon = 'subdirectory_arrow_right';
+    this.activeMatListIcon = 'arrow_back_ios';
+    this.lt = 48.879966;
+    this.lg = 11.726909;
+    this.options = {
+      layers: [
+        tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '...' })
+      ],
+      zoom: 4,
+      center: latLng(this.lt, this.lg)
+    };
+    this.layers = [];
+    this.DATA = data;
+    this.ACTIVE = [];
   }
 
 }
