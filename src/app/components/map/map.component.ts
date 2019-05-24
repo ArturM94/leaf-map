@@ -64,9 +64,25 @@ export class MapComponent implements OnInit {
     }
   }
 
+  removeMarker(id: number): void {
+    this.layers.splice(id - 1, 1);
+    const removeIndex = this.ACTIVE.map((mark: Mark) => mark.id).indexOf(id - 1);
+
+    const removedMarker = this.ACTIVE.splice(removeIndex, 1)[0];
+    console.log('Removed marker', removedMarker);
+
+    this.DATA.push(removedMarker);
+    console.log('DATA:', this.DATA);
+  }
+
   handleAddMarker(id: number): void {
     this.addMarker(id);
     console.log('Marked!');
+  }
+
+  handleRemoveMarker(id: number): void {
+    this.removeMarker(id);
+    console.log('Removed!');
   }
 
   handleMenu(): void {
