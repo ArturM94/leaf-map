@@ -49,6 +49,11 @@ export class MapComponent implements OnInit {
     this.layers.push(newMarker);
   }
 
+  handleAddMarker(id: number): void {
+    this.addMarker(id);
+    console.log('Marked!');
+  }
+
   handleMenu(): void {
     this.isVisible = !this.isVisible;
   }
