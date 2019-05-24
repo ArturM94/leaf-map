@@ -1,5 +1,61 @@
-<div style="height: 500px; width: 1000px;"
-     leaflet
-     [leafletOptions]="options"
-     [leafletLayers]="layers">
+<div class="container">
+  <div class="row">
+
+    <div class="map-container"
+         leaflet
+         [leafletOptions]="options"
+         [leafletLayers]="layers">
+    </div>
+
+    <div class="col-3">
+
+      <button mat-icon-button (click)="handleMenu()">
+        <mat-icon>{{isVisible ? 'remove' : 'add'}}</mat-icon>
+      </button>
+
+      <ng-container *ngIf="isVisible">
+
+        <mat-action-list class="parent-list" *ngFor="let parent of DATA">
+
+          <button mat-list-item (click)="handleAddMarker(parent.id)">
+            <mat-icon matListIcon>{{parentDataMatListIcon}}</mat-icon>
+            {{parent.name}}
+          </button>
+
+          <mat-action-list class="child-list" *ngFor="let child of parent.children">
+            <button mat-list-item (click)="handleAddMarker(child.parent_id)">
+              <mat-icon matListIcon>{{childDataMatListIcon}}</mat-icon>
+              {{child.name}}
+            </button>
+          </mat-action-list>
+
+          <mat-divider></mat-divider>
+
+        </mat-action-list>
+
+      </ng-container>
+
+    </div>
+
+    <div class="col-3">
+
+      <mat-action-list class="parent-list" *ngFor="let parent of ACTIVE">
+
+        <button mat-list-item (click)="handleRemoveMarker(parent.id)">
+          <mat-icon matListIcon>{{activeMatListIcon}}</mat-icon>
+          {{parent.name}}
+        </button>
+
+        <mat-action-list class="child-list" *ngFor="let child of parent.children">
+          <button mat-list-item (click)="handleRemoveMarker(child.parent_id)">
+            <mat-icon matListIcon>{{childDataMatListIcon}}</mat-icon>
+            {{child.name}}
+          </button>
+        </mat-action-list>
+
+      </mat-action-list>
+
+    </div>
+
+  </div>
 </div>
