@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { tileLayer, latLng, marker, Marker } from 'leaflet';
+import * as _ from 'lodash';
 import 'leaflet/dist/images/marker-shadow.png';
 import 'leaflet/dist/images/marker-icon.png';
 
@@ -43,46 +44,38 @@ export class MapComponent implements OnInit {
     this.layers = [];
     this.DATA = data;
     this.ACTIVE = [];
+    console.log('INIT layers', this.layers);
   }
 
   addMarker(id: number): void {
     const newMarker: Marker = marker([ this.lt + 5 * (Math.random() - 0.5), this.lg + 5 * (Math.random() - 0.5) ]);
+    console.log('MARKER:', newMarker);
     this.layers.push(newMarker);
-    const activeMarker = this.DATA.find((mark: Mark) => mark.id === id);
+    const activeMarker = _.remove(this.DATA, (mark: Mark) => mark.id === id);
+
     console.log('Marker ID:', id);
     console.log('Active marker:', activeMarker);
-    if ('children' in activeMarker) {
-      console.log('Marker has children');
 
-      const removeIndex = this.DATA.map((mark: Mark) => mark.id).indexOf(id - 1);
-
-      const addedMarker = this.DATA.splice(removeIndex, 1);
-      console.log('Added marker', addedMarker);
-
-      this.ACTIVE.push(activeMarker);
-      console.log('ACTIVE:', this.ACTIVE);
-    }
+    this.ACTIVE.push(activeMarker[0]);
   }
 
   removeMarker(id: number): void {
+    const inactiveMarker = _.remove(this.ACTIVE, (mark: Mark) => mark.id === id);
+    console.log('Layers:', this.layers);
+    console.log('MARKER', inactiveMarker);
     this.layers.splice(id - 1, 1);
-    const removeIndex = this.ACTIVE.map((mark: Mark) => mark.id).indexOf(id - 1);
 
-    const removedMarker = this.ACTIVE.splice(removeIndex, 1)[0];
-    console.log('Removed marker', removedMarker);
-
-    this.DATA.push(removedMarker);
-    console.log('DATA:', this.DATA);
+    this.DATA.push(inactiveMarker[0]);
   }
 
   handleAddMarker(id: number): void {
     this.addMarker(id);
-    console.log('Marked!');
+    console.log('AFTER ADD', this.layers);
   }
 
   handleRemoveMarker(id: number): void {
     this.removeMarker(id);
-    console.log('Removed!');
+    console.log('AFTER REMOVE', this.layers);
   }
 
   handleMenu(): void {
