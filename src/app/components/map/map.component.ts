@@ -15,6 +15,7 @@ export class MapComponent implements OnInit {
   parentDataMatListIcon: string;
   childDataMatListIcon: string;
   activeMatListIcon: string;
+  isVisible: boolean;
   lt: number;
   lg: number;
   options: object;
@@ -28,6 +29,7 @@ export class MapComponent implements OnInit {
     this.parentDataMatListIcon = 'arrow_forward_ios';
     this.childDataMatListIcon = 'subdirectory_arrow_right';
     this.activeMatListIcon = 'arrow_back_ios';
+    this.isVisible = true;
     this.lt = 48.879966;
     this.lg = 11.726909;
     this.options = {
@@ -42,9 +44,13 @@ export class MapComponent implements OnInit {
     this.ACTIVE = [];
   }
 
-  addMarker() {
+  addMarker(id: number): void {
     const newMarker: Marker = marker([ this.lt + 5 * (Math.random() - 0.5), this.lg + 5 * (Math.random() - 0.5) ]);
     this.layers.push(newMarker);
+  }
+
+  handleMenu(): void {
+    this.isVisible = !this.isVisible;
   }
 
 }
