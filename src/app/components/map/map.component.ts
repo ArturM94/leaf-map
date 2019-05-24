@@ -4,6 +4,7 @@ import 'leaflet/dist/images/marker-shadow.png';
 import 'leaflet/dist/images/marker-icon.png';
 
 import data from 'src/assets/data.json';
+import { Mark } from '../../interfaces/mark';
 
 @Component({
   selector: 'app-map',
@@ -47,6 +48,20 @@ export class MapComponent implements OnInit {
   addMarker(id: number): void {
     const newMarker: Marker = marker([ this.lt + 5 * (Math.random() - 0.5), this.lg + 5 * (Math.random() - 0.5) ]);
     this.layers.push(newMarker);
+    const activeMarker = this.DATA.find((mark: Mark) => mark.id === id);
+    console.log('Marker ID:', id);
+    console.log('Active marker:', activeMarker);
+    if ('children' in activeMarker) {
+      console.log('Marker has children');
+
+      const removeIndex = this.DATA.map((mark: Mark) => mark.id).indexOf(id - 1);
+
+      const addedMarker = this.DATA.splice(removeIndex, 1);
+      console.log('Added marker', addedMarker);
+
+      this.ACTIVE.push(activeMarker);
+      console.log('ACTIVE:', this.ACTIVE);
+    }
   }
 
   handleAddMarker(id: number): void {
